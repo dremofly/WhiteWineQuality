@@ -49,77 +49,97 @@ head(pf)
 
 
 # 单变量绘图选择
+```{r echo=FALSE, "function of univariable"}
+univariate_plot <- function(varname, binwidth) {
+  return(ggplot(aes_string(x = varname), data = pf) + 
+           geom_histogram())
+}
+```
+
+
 ```{r echo=FALSE, "Univariate_Plots fixed.acidity"}
-qplot(data=pf, x=fixed.acidity)
+temp <- univariate_plot("fixed.acidity")
+temp
 summary(pf$fixed.acidity)
 ```
 查看fixed.acidity的直方图，从图中可以看出其基本满足正态分布。
 
 
 ```{r echo=FALSE, "Univariate_Plots volatile.acidity"}
-qplot(data=pf, x=volatile.acidity)
+temp <- univariate_plot("volatile.acidity")
+temp
 summary(pf$volatile.acidity)
 ```
 查看volatile.acidity的直方图，从图中可以看出其基本满足正态分布，除了右边的数据尾巴比较长。
 
 ```{r echo=FALSE, "Univariate_Plots citric.acid"}
-qplot(data=pf, x=citric.acid)
+temp <- univariate_plot("citric.acid")
+temp
 summary(pf$fixed.acidity)
 ```
 查看fixed.acidity的直方图，从图中可以看出其基本满足正态分布。
 
 ```{r echo=FALSE, "Univariate_Plots residual.sugar"}
-qplot(data=pf, x=residual.sugar) + 
+temp <- univariate_plot("residual.sugar") + 
   scale_x_continuous(breaks=seq(0,20,1), lim=c(0,20)) + 
   scale_x_log10()
+temp
 summary(pf$residual.sugar)
 ```
 查看residual sugar的直方图，在为调整坐标轴前数据不满足正态分布。经过坐标轴的调整得到一个呈双峰分布的数据。
 
 ```{r echo=FALSE, "Univariate_Plots chlorides"}
-qplot(data=pf, x=chlorides)
+temp <- univariate_plot("chlorides")
+temp
 summary(pf$chlorides)
 ```
 查看cholrides的直方图，从图中可以看出其基本满足正态分布。
 
 ```{r echo=FALSE, "Univariate_Plots free.sulfur.dioxide"}
-qplot(data=pf, x=free.sulfur.dioxide)
+temp <- univariate_plot("free.sulfur.dioxide")
+temp 
 summary(pf$free.sulfur.dioxide)
 ```
 查看free.sulfur.dioxide的直方图，从图中可以看出其基本满足正态分布。
 
 ```{r echo=FALSE, "Univariate_Plots total.sulfur.dioxide"}
-qplot(data=pf, x=total.sulfur.dioxide)
+temp <- univariate_plot("total.sulfur.dioxide")
+temp
 summary(pf$total.sulfur.dioxide)
 ```
 查看free.sulfur.dioxide的直方图，从图中可以看出其基本满足正态分布。
 
 ```{r echo=FALSE, "Univariate_Plots density"}
-qplot(data=pf, x=density)
+temp <- univariate_plot("density")
+temp 
 summary(pf$density)
 ```
 查看density的直方图，从图中可以看出其基本满足正态分布。
 
 ```{r echo=FALSE, "Univariate_Plots pH"}
-qplot(data=pf, x=pH)
+temp <- univariate_plot("pH")
+temp
 summary(pf$pH)
 ```
 查看pH的直方图，从图中可以看出其基本满足正态分布。
 
 ```{r echo=FALSE, "Univariate_Plots sulphates"}
-qplot(data=pf, x=sulphates)
+temp <- univariate_plot("sulphates")
+temp
 summary(pf$sulphates)
 ```
 查看=sulphates的直方图，从图中可以看出其基本满足正态分布。
 
 ```{r echo=FALSE, "Univariate_Plots alcohol"}
-qplot(data=pf, x=alcohol, binwidth=0.1)
+temp <- univariate_plot("alcohol")
+temp
 summary(pf$alcohol)
 ```
 查看alcohol的直方图，图形不符合正态分布，在调整坐标轴后也没有满足正态分布。
 
 ```{r echo=FALSE, "Univariate_Plots quality"}
-qplot(data=pf, x=quality)
+temp <- univariate_plot("quality")
+temp
 summary(pf$quality)
 ```
 查看quality的直方图，从图中可以看出其基本满足正态分布。
