@@ -1,5 +1,5 @@
 ---
-title: "白酒质量研究"
+title: "白葡萄酒质量研究"
 output:
   html_document:
     df_print: paged
@@ -10,7 +10,7 @@ output:
     latex_engine: xelatex
     toc: yes
 ---
-白酒质量的研究
+白葡萄酒质量的研究
 ========================================================
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, packages}
@@ -149,10 +149,13 @@ summary(pf$quality)
 从这里可以看出这个数据集有4898行，13列。也就是数据集中有13个特征，4898个数据。
 
 从head我们可以看出，x是序号，其他的12列代表的是属性。其中2-12个都是将葡萄酒的性质，最后的一个是对于葡萄酒质量的评分。在这些特征中没有factor类型的数据。
+
 ### 你的数据集内感兴趣的主要特性有哪些？
 哪些变量会影响白葡萄酒的quality。
+
 ### 你认为数据集内哪些其他特征可以帮助你探索兴趣特点？
 每一个变量都可能影响白葡萄酒的quality。同一个物质的含量不同很可能会对葡萄酒的口味产生影响。
+
 ### 根据数据集内已有变量，你是否创建了任何新变量？
 我注意到变量中有free.sulfur.dioxide和total.sulfur.dioxide，因此，应当存在一个other.sulfur.dioxide。
 ```{r echo=FALSE, "create new variable."}
@@ -307,12 +310,6 @@ density和residual sugar之间的相关系数达到了0.84.
 
 # 多变量绘图选择
 
-
-```{r echo=FALSE, "Multivariate_Plots"}
-ggplot(aes(x=sulphates, color=I("black"), fill=quality), data=pf) + 
-  geom_histogram()
-```
-
 由于，从前面的观察看到alcohol, density和residual.sugar可能存在一定的关系。这里我们就探讨一下这几个变量的关系。
 ```{r echo=FALSE, "alcohol vs. density vs. residual.sugar"}
 pf$alcohol.bucket <- cut(pf$alcohol, breaks=c(7,10,11,15))
@@ -335,23 +332,8 @@ ggplot(aes(x=alcohol, residual.sugar, color=density.bucket), data=pf) +
   scale_y_continuous(limits = c(0,20))
 ```
 
+从alcohol vs. density vs. residual.sugar的图中可以看出每个图中的点中有比较明显的分层。
 
-```{r}
-ggplot(aes(x=density, y=total.sulfur.dioxide, color=quality), data=pf) + 
-  geom_point()  +
-  geom_smooth(method="lm") +
-  scale_x_continuous(limits=c(0.988,1)) +
-  scale_y_continuous(limits=c(0,250))
-```
-
-```{r}
-ggplot(aes(x=residual.sugar, y=density, color=quality), data=pf) + 
-  geom_point()  +
-  geom_smooth(method="lm") +
-  scale_x_continuous(breaks=seq(0,20,5),limits=c(0,20)) +
-  scale_y_continuous(limits=c(0.985,1))
-  
-```
 # 多变量分析
 ###  探讨你在这部分探究中观察到的一些关系。通过观察感兴趣的特性，是否存在相互促进的特性？
 * 从alcohol vs. density vs. residual.sugar的图中可以看出每个图中的点中有比较明显的分层。
@@ -410,3 +392,5 @@ ggplot(aes(x=residual.sugar, y=density, color=quality), data=pf) +
 
 # 反思
 在刚开始分析单个数据的分布的时候，感觉比较迷茫，看不出数据之间的关系，对于如何分析无从下手。当开始分析两个数据的时候，先画出了相关系数的矩阵和散点图矩阵。从中可以挖掘中各个属性之间的相关性，然后取出几个相关的，仔细查看他们的关系。最好从分析多个变量中，可以进一步得出分析哪些变量与感兴趣的变量有关系。
+
+在这个数据集中的数据基本是满足正态分布的，可能在以后的分析中会遇到数据不那么符合正态分布的，这时候可能要进行更多的处理。另外，相关系数的矩阵是非常重要的参考。单变量的分析可以用来查看数据的分布是否正常，算是数据分析前的准备，那么开始查看变量间的相关系数的时候才是真正开始数据分析的时候。
