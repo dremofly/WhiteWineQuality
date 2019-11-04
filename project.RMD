@@ -175,113 +175,117 @@ library(GGally)
 
 ggpairs(pf) # 可能要很长但时间
 ```
-接下来查看每个变量与quality的关系。
-首先是fixed.acidity和quality。fixed.acidity的值主要是3-11，因此可以调整x轴。
+
+```{r echo=FALSE, "box plot function"}
+# this function is used to plot the box plot of varname vs. quality. 
+box_plot_of_quality <- function(varname, title_name) {
+  return(ggplot(aes_string(x="quality", y=varname), data = pf) + 
+           geom_boxplot() + 
+           labs(title=title_name)
+         )
+}
+```
+
+先要将quality转换成factor变量。
 ```{r echo=FALSE, "transform quality from numerical into factor"}
 pf$quality <- as.factor(pf$quality)
 ```
+
+接下来查看每个变量与quality的关系。
+首先是fixed.acidity和quality。fixed.acidity的值主要是3-11，因此可以调整x轴。
+
+
 ```{r echo=FALSE}
-ggplot(aes(x=quality,y=fixed.acidity), data=pf) + 
-  geom_boxplot() + 
-  scale_y_continuous(limits=c(4,11)) + 
-  labs(title="fixed.acidity vs. quality")
+temp <- box_plot_of_quality("fixed.acidity", "fixed.acidity vs. quality") + 
+  scale_y_continuous(limits=c(3,11))
+temp
 ```
 
 从fixed.acidity和quality的箱线图可以看出，不同的quality的酒之间的分布没有很大的差别。
 
 ```{r echo=FALSE, "volatile.acidity vs quality"}
-ggplot(aes(x=quality, y=volatile.acidity), data=pf) + 
-  geom_boxplot() + 
-  scale_y_continuous(breaks=seq(0.05,0.7,0.1), limits = c(0.05,0.7)) + 
-  labs(title="volatile.acidity vs. quality")
+temp <- box_plot_of_quality("volatile.acidity", "volatile.acidity vs. quality") + 
+  scale_y_continuous(breaks=seq(0.05,0.7,0.1), limits=c(0.05,0.7))
+temp
 ```
 
 从fixed.acidity和quality的箱线图可以看出，不同的quality的酒之间的分布是有差别的。从各个中位数可以看出，他们的中位数不是单调变化的。
 
 ```{r echo=FALSE, "citric.acid vs quality"}
-ggplot(aes(x=quality, y=citric.acid), data=pf) + 
-  geom_boxplot() + 
-  scale_y_continuous(breaks=seq(0,0.6,0.1),limits=c(0,0.6)) + 
-  labs(title="quality vs. citric.acid")
+temp <- box_plot_of_quality("citric.acid", "citric.acid vs. quality") + 
+  scale_y_continuous(breaks=seq(0,0.6,0.1), limits=c(0,0.6))
+temp
 ```
 
 从fixed.acidity和quality的箱线图也看不出什么分布规律。
 
 ```{r echo=FALSE, "residual.sugar vs quality"}
-ggplot(aes(x=quality, y=residual.sugar), data=pf) + 
-  geom_boxplot() + 
-  scale_y_continuous(breaks=seq(0,21,1), limits = c(0,21)) + 
-  labs(title="quality vs. residual.sugar")
+temp <- box_plot_of_quality("residual.sugar", "residual.sugar vs. quality") + 
+  scale_y_continuous(breaks=seq(0,21,1), limits=c(0,21))
+temp
 ```
 
 从residul.sugar和quality的箱线图看不出什么分布规律。
 
 ```{r echo=FALSE, "chlorides vs quality"}
-ggplot(aes(x=quality, y=chlorides), data=pf) + 
-  geom_boxplot() + 
-  scale_y_continuous(breaks=seq(0,0.08,0.01),limits=c(0,0.08)) + 
-  labs(title="chlorides vs. quality")
+temp <- box_plot_of_quality("chlorides", "chlorides vs. quality") + 
+  scale_y_continuous(breaks=seq(0,0.08,0.01), limits=c(0,0.08))
+temp
 ```
 
 cholrides和quality的箱线图的中的中位线也是先上升后下降。
 
 ```{r echo=FALSE, "free.sulfur.dioxide vs quality"}
-ggplot(aes(x=quality, y=free.sulfur.dioxide), data=pf) + 
-  geom_boxplot() + 
-  scale_y_continuous(breaks=seq(0,100,10), limits=c(0,100)) + 
-  labs(title="free.sulfur.dioxide vs. quality")
+temp <- box_plot_of_quality("free.sulfur.dioxide", "free.sulfur.dioxide vs. quality") + 
+  scale_y_continuous(breaks=seq(0,100,10), limits=c(0,100))
+temp
 ```
 
 quality和free.sulfur.dioxide可以看出，当quality大于4的时候free.sulfur.dioxide比较高，quality小与4的时候比较低。
 
 ```{r echo=FALSE, "total.sulfur.dioxide vs quality"}
-ggplot(aes(x=quality, y=total.sulfur.dioxide), data=pf) + 
-  geom_boxplot() + 
-  scale_y_continuous(breaks=seq(0,270,30), limits=c(0,270)) + 
-  labs(title="total.sulfur.dioxide vs. quality")
+temp <- box_plot_of_quality("total.sulfur.dioxide", "total.sulfur.dioxide vs. quality") + 
+  scale_y_continuous(breaks=seq(0,270,30), limits=c(0,270))
+temp
 ```
 
 看不出什么规律。
 
 ```{r echo=FALSE, "other.sulfur.dioxide vs quality"}
-ggplot(aes(x=quality, y=other.sulfur.dioxide), data=pf) + 
-  geom_boxplot() + 
-  scale_y_continuous(breaks=seq(0,220,20), limits=c(0,220)) + 
-  labs(title="other.sulfur.dioxide vs. quality")
+temp <- box_plot_of_quality("other.sulfur.dioxide", "other.sulfur.dioxide vs. quality") + 
+  scale_y_continuous(breaks=seq(0,220,20), limits=c(0,220))
+temp
 ```
 
 看不出什么规律。
 
 ```{r echo=FALSE, "density vs quality"}
-ggplot(aes(x=quality, y=density), data=pf) + 
-  geom_boxplot() + 
-  scale_y_continuous(breaks=seq(0.985,1.005,0.005), limits=c(0.985,1.005)) + 
-  labs(title="density vs. quality")
+temp <- box_plot_of_quality("density", "density vs. quality") + 
+  scale_y_continuous(breaks=seq(0.985,1.005,0.005), limits=c(0.985,1.005))
+temp
 ``` 
 
 总体来说density比较低的有更好的quality。
 
 ```{r echo=FALSE, "pH vs quality"}
-ggplot(aes(x=quality, y=pH), data=pf) + 
-  geom_boxplot() + 
-  scale_y_continuous(breaks=seq(2.7,3.9,0.2)) + 
-  labs(title="pH vs. quality")
+temp <- box_plot_of_quality("pH", "pH vs. quality") + 
+  scale_y_continuous(breaks=seq(2.7,3.9,0.3), limits=c(2.7,3.9))
+temp
 ```
 
 看不出什么规律。
 
 
 ```{r echo=FALSE, "sulphates vs quality"}
-ggplot(aes(x=quality, y=sulphates), data=pf) + 
-  geom_boxplot() + 
-  labs(title="sulphates vs. quality")
+temp <- box_plot_of_quality("sulphates", "sulphates vs. quality")
+temp
 ```
 
 看不出什么规律。
 
 ```{r echo=FALSE, "alcohol vs quality"}
-ggplot(aes(x=quality, y=alcohol), data=pf) + 
-  geom_boxplot()
+temp <- box_plot_of_quality("alcohol", "alcohol vs. quality") 
+temp
 ```
 
 从图中可以看出当小于4时，酒精都比较低。当qualty变大了以后，酒精含量也上升。
