@@ -29,20 +29,20 @@ library(ggplot2)
 pf <- read.csv('./data/wineQualityWhites.csv')
 ```
 
-```{r dimension of the dataset}
+```{r echo=FALSE, "dimension of the dataset"}
 dim(pf)
 ```
 
 
-```{r structure of the dataset} 
+```{r echo=FALSE, "structure of the dataset"} 
 str(pf)
 ```
 
-```{r summary of the dataset}
+```{r echo=FALSE, "summary of the dataset"}
 summary(pf)
 ```
 
-```{r a glance at the dataset}
+```{r echo=FALSE, "a glance at the dataset"}
 head(pf)
 ```
 
@@ -135,7 +135,7 @@ summary(pf$quality)
 每一个变量都可能影响白葡萄酒的quality。同一个物质的含量不同很可能会对葡萄酒的口味产生影响。
 ### 根据数据集内已有变量，你是否创建了任何新变量？
 我注意到变量中有free.sulfur.dioxide和total.sulfur.dioxide，因此，应当存在一个other.sulfur.dioxide。
-```{r create new variable.}
+```{r echo=FALSE, "create new variable."}
 pf$other.sulfur.dioxide <- pf$total.sulfur.dioxide - pf$free.sulfur.dioxide
 qplot(data=pf, x=other.sulfur.dioxide)
 summary(pf$other.sulfur.dioxide)
@@ -147,10 +147,10 @@ summary(pf$other.sulfur.dioxide)
 
 
 # 双变量绘图选择
-```{r echo=FALSE, Bivariate_Plots}
+```{r echo=FALSE, "Bivariate_Plots"}
 round(cor(pf),2)
 ```
-```{r scatter matrix, fig.height=50, fig.width=50, }
+```{r echo=FALSE, "scatter matrix", fig.height=50, fig.width=50, }
 library(GGally)
 
 ggpairs(pf) # 可能要很长但时间
@@ -169,7 +169,7 @@ ggplot(aes(x=quality,y=fixed.acidity), data=pf) +
 
 从fixed.acidity和quality的箱线图可以看出，不同的quality的酒之间的分布没有很大的差别。
 
-```{r volatile.acidity vs quality}
+```{r echo=FALSE, "volatile.acidity vs quality"}
 ggplot(aes(x=quality, y=volatile.acidity), data=pf) + 
   geom_boxplot() + 
   scale_y_continuous(breaks=seq(0.05,0.7,0.1), limits = c(0.05,0.7)) + 
@@ -178,7 +178,7 @@ ggplot(aes(x=quality, y=volatile.acidity), data=pf) +
 
 从fixed.acidity和quality的箱线图可以看出，不同的quality的酒之间的分布是有差别的。从各个中位数可以看出，他们的中位数不是单调变化的。
 
-```{r citric.acid vs quality}
+```{r echo=FALSE, "citric.acid vs quality"}
 ggplot(aes(x=quality, y=citric.acid), data=pf) + 
   geom_boxplot() + 
   scale_y_continuous(breaks=seq(0,0.6,0.1),limits=c(0,0.6)) + 
@@ -187,7 +187,7 @@ ggplot(aes(x=quality, y=citric.acid), data=pf) +
 
 从fixed.acidity和quality的箱线图也看不出什么分布规律。
 
-```{r residual.sugar vs quality}
+```{r echo=FALSE, "residual.sugar vs quality"}
 ggplot(aes(x=quality, y=residual.sugar), data=pf) + 
   geom_boxplot() + 
   scale_y_continuous(breaks=seq(0,21,1), limits = c(0,21)) + 
@@ -196,7 +196,7 @@ ggplot(aes(x=quality, y=residual.sugar), data=pf) +
 
 从residul.sugar和quality的箱线图看不出什么分布规律。
 
-```{r chlorides vs quality}
+```{r echo=FALSE, "chlorides vs quality"}
 ggplot(aes(x=quality, y=chlorides), data=pf) + 
   geom_boxplot() + 
   scale_y_continuous(breaks=seq(0,0.08,0.01),limits=c(0,0.08)) + 
@@ -205,7 +205,7 @@ ggplot(aes(x=quality, y=chlorides), data=pf) +
 
 cholrides和quality的箱线图的中的中位线也是先上升后下降。
 
-```{r free.sulfur.dioxide vs quality}
+```{r echo=FALSE, "free.sulfur.dioxide vs quality"}
 ggplot(aes(x=quality, y=free.sulfur.dioxide), data=pf) + 
   geom_boxplot() + 
   scale_y_continuous(breaks=seq(0,100,10), limits=c(0,100)) + 
@@ -214,7 +214,7 @@ ggplot(aes(x=quality, y=free.sulfur.dioxide), data=pf) +
 
 quality和free.sulfur.dioxide可以看出，当quality大于4的时候free.sulfur.dioxide比较高，quality小与4的时候比较低。
 
-```{r total.sulfur.dioxide vs quality}
+```{r echo=FALSE, "total.sulfur.dioxide vs quality"}
 ggplot(aes(x=quality, y=total.sulfur.dioxide), data=pf) + 
   geom_boxplot() + 
   scale_y_continuous(breaks=seq(0,270,30), limits=c(0,270)) + 
@@ -223,7 +223,7 @@ ggplot(aes(x=quality, y=total.sulfur.dioxide), data=pf) +
 
 看不出什么规律。
 
-```{r other.sulfur.dioxide vs quality}
+```{r echo=FALSE, "other.sulfur.dioxide vs quality"}
 ggplot(aes(x=quality, y=other.sulfur.dioxide), data=pf) + 
   geom_boxplot() + 
   scale_y_continuous(breaks=seq(0,220,20), limits=c(0,220)) + 
@@ -232,7 +232,7 @@ ggplot(aes(x=quality, y=other.sulfur.dioxide), data=pf) +
 
 看不出什么规律。
 
-```{r density vs quality}
+```{r echo=FALSE, "density vs quality"}
 ggplot(aes(x=quality, y=density), data=pf) + 
   geom_boxplot() + 
   scale_y_continuous(breaks=seq(0.985,1.005,0.005), limits=c(0.985,1.005)) + 
@@ -241,7 +241,7 @@ ggplot(aes(x=quality, y=density), data=pf) +
 
 总体来说density比较低的有更好的quality。
 
-```{r pH vs quality}
+```{r echo=FALSE, "pH vs quality"}
 ggplot(aes(x=quality, y=pH), data=pf) + 
   geom_boxplot() + 
   scale_y_continuous(breaks=seq(2.7,3.9,0.2)) + 
@@ -251,7 +251,7 @@ ggplot(aes(x=quality, y=pH), data=pf) +
 看不出什么规律。
 
 
-```{r sulphates vs quality}
+```{r echo=FALSE, "sulphates vs quality"}
 ggplot(aes(x=quality, y=sulphates), data=pf) + 
   geom_boxplot() + 
   labs(title="sulphates vs. quality")
@@ -259,7 +259,7 @@ ggplot(aes(x=quality, y=sulphates), data=pf) +
 
 看不出什么规律。
 
-```{r alcohol vs quality}
+```{r echo=FALSE, "alcohol vs quality"}
 ggplot(aes(x=quality, y=alcohol), data=pf) + 
   geom_boxplot()
 ```
@@ -284,13 +284,13 @@ density和residual sugar之间的相关系数达到了0.84.
 # 多变量绘图选择
 
 
-```{r echo=FALSE, Multivariate_Plots}
+```{r echo=FALSE, "Multivariate_Plots"}
 ggplot(aes(x=sulphates, color=I("black"), fill=quality), data=pf) + 
   geom_histogram()
 ```
 
 由于，从前面的观察看到alcohol, density和residual.sugar可能存在一定的关系。这里我们就探讨一下这几个变量的关系。
-```{r alcohol vs. density vs. residual.sugar}
+```{r echo=FALSE, "alcohol vs. density vs. residual.sugar"}
 pf$alcohol.bucket <- cut(pf$alcohol, breaks=c(7,10,11,15))
 pf$residual.sugar.bucket <- cut(pf$residual.sugar, breaks=c(0,4,8,66))
 pf$density.bucket <- cut(pf$density, breaks=c(0.98,0.992,0.995,1.04))
@@ -344,7 +344,7 @@ ggplot(aes(x=residual.sugar, y=density, color=quality), data=pf) +
 # 定稿图与总结
 
 ### 绘图一
-```{r echo=FALSE, Plot_One}
+```{r echo=FALSE, "Plot_One"}
 qplot(data=pf, x=quality) + 
   labs(title="Histogram of quality") +
   ylab(label="count") +
@@ -355,7 +355,7 @@ qplot(data=pf, x=quality) +
 从quality的直方图中可以看出quality符合正态分布。quality为6的数量最多，quality得分很高或者很低的数量很少。
 
 ### 绘图二
-```{r echo=FALSE, Plot_Two}
+```{r echo=FALSE, "Plot_Two"}
 ggplot(aes(x=quality, y=alcohol), data=pf) + 
   geom_boxplot() + 
   labs(title="Box plot of alcohol vs. quality") +
@@ -367,7 +367,7 @@ ggplot(aes(x=quality, y=alcohol), data=pf) +
 通常我们认为酒的质量和酒精的含量是有关系的。这幅图解释了在这个数据集中的关系。从图中可以看出，当qulity在5以下时酒精浓度和quality没什么关系，但是当quality大于5以后，酒精含量越高，quality也越高。对于quality为9的情况，酒精浓度相当的高。
 
 ### 绘图三
-```{r echo=FALSE, Plot_Three}
+```{r echo=FALSE, "Plot_Three"}
 ggplot(aes(x=residual.sugar, y=density, color=quality), data=pf) + 
   geom_point()  +
   geom_smooth(method="lm") +
